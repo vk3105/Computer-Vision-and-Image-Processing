@@ -3,7 +3,7 @@ import cv2
 import math
 from matplotlib import pyplot as plt
 
-def problemA(img,kernel):
+def dilation(img,kernel):
     output=np.zeros(img.shape)
     rows = img.shape[0]
     cols = img.shape[1]
@@ -24,7 +24,7 @@ def problemA(img,kernel):
             output[i][j]=max
     return output
 
-def problemB(img,kernel):
+def erosion(img,kernel):
     output=np.zeros(img.shape)
     rows = img.shape[0]
     cols = img.shape[1]
@@ -45,7 +45,7 @@ def problemB(img,kernel):
             output[i][j]=min
     return output
     
-def problemC(img,kernel):
+def hit_miss(img,kernel):
     output=np.zeros(img.shape)
     rows = img.shape[0]
     cols = img.shape[1]
@@ -110,12 +110,12 @@ def main():
                         [9,1,9]])
 
     
-    outputA = problemA(img,kernel)
-    outputB = problemB(img,kernel)
-    outputC = problemC(img,kernel1)
-    outputC = np.logical_or(outputC,problemC(img,kernel2))*1
-    outputC = np.logical_or(outputC,problemC(img,kernel3))*1
-    outputC = np.logical_or(outputC,problemC(img,kernel4))*1
+    outputA = dilation(img,kernel)
+    outputB = erosion(img,kernel)
+    outputC = hit_miss(img,kernel1)
+    outputC = np.logical_or(outputC,hit_miss(img,kernel2))*1
+    outputC = np.logical_or(outputC,hit_miss(img,kernel3))*1
+    outputC = np.logical_or(outputC,hit_miss(img,kernel4))*1
     
     print "Solution A"
     print outputA
